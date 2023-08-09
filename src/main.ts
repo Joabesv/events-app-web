@@ -9,11 +9,8 @@ import ElementPlus from "element-plus";
 import ptBr from "./helpers/pt-br";
 import "element-plus/dist/index.css";
 
-import VueMask from 'v-mask'
-
 const app = createApp(App)
 app.use(PacoteSophia)
 app.use(ElementPlus, { locale: ptBr });
 app.use(router)
 app.mount('#app')
-app.use(VueMask)
