@@ -1,9 +1,8 @@
 <script setup lang="ts">
 import { ref } from "vue";
-// import imagemVazio from '../assets/vazioTudoCerto.svg'
+import imagemVazio from '../assets/vazioTudoCerto.svg'
 const events = ref([1]);
 const nextEvents = ref([1, 2]);
-const eventsInProgress = ref([1]);
 
 function editEvent(event: any) {
   console.log(event);
@@ -17,13 +16,13 @@ function editEvent(event: any) {
       <h4>Eventos</h4>
 
       <!-- Página Vazia -->
-      <!-- <s-card>
+      <s-card v-if="events.length == 0 && nextEvents.length == 0">
         <s-vazio
           :imagem="imagemVazio"
           :titulo="'Parece que você não tem mais nenhum evento confirmado na agenda'"
           class="s-home-vazio-container"
         />
-      </s-card> -->
+      </s-card>
 
       <s-card
         v-if="events.length > 0 || nextEvents.length > 0"
@@ -60,7 +59,7 @@ function editEvent(event: any) {
           </div>
         </div>
       </s-card>
-      <s-button-menu label="Todos os eventos"/>
+      <s-button-menu label="Todos os eventos" @click="$router.push('/all')"/>
       <s-button-menu label="Criar evento" variant="primary-green" @click="$router.push('/event')"/>
     </s-container>
   </div>
