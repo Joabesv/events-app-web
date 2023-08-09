@@ -1,20 +1,23 @@
 import { fastify, type FastifyServerOptions } from 'fastify';
 import { fastifyCors } from '@fastify/cors';
 import { fastifyAutoload } from '@fastify/autoload';
-import { join } from 'node:path';
+import { join } from 'desm';
 
-export async function buildApp(opts: FastifyServerOptions = {}) {
+export function buildApp(opts: FastifyServerOptions = {}) {
   const app = fastify(opts);
 
   try {
     app.register(fastifyAutoload, {
-      dir: join(__dirname, 'modules')
+      dir: join(import.meta.url, 'modules')
     })
     app.register(fastifyAutoload, {
-      dir: join(__dirname, 'plugins')
+      dir: join(import.meta.url, 'plugins')
     })
     app.register(fastifyCors, {
       origin: '*'
+    })
+    app.get('/', async (request, reply) => {
+      reply.send('started')
     })
   } catch (error) {
     app.log.fatal({ error }, 'setup app error');
