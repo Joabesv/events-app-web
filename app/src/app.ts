@@ -29,7 +29,7 @@ import { join } from 'desm';
 
 
 export default async function routes(app: FastifyInstance, opts: Record<string, unknown>) {
-  app.get('/', async (request, reply) => {
+  app.get('/jesus ', async (request, reply) => {
     return { msg: 'teste' }
   })
 }

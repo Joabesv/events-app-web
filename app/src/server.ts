@@ -5,9 +5,12 @@ const app = fastify({
   logger
 })
 
-app.register(import('./app'))
+app.register(import('./app'), {
+  prefix: '/jesus'
+})
 
 export default async (request: FastifyRequest, reply: FastifyReply) => {
   await app.ready();
+  logger.info(app.printRoutes())
   app.server.emit('request', request, reply)
 }
