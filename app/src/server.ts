@@ -1,10 +1,13 @@
-import { FastifyReply, FastifyRequest } from 'fastify';
-import { buildApp } from './app';
+import fastify, { FastifyReply, FastifyRequest } from 'fastify';
 import { logger } from './config/logger';
 
+const app = fastify({
+  logger
+})
+
+app.register(import('./app'))
+
 export default async (request: FastifyRequest, reply: FastifyReply) => {
-  const app = buildApp();
-  logger.info(app.printRoutes())
   await app.ready();
   app.server.emit('request', request, reply)
 }
